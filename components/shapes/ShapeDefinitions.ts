@@ -1064,6 +1064,56 @@ const SHAPE_DEFINITIONS: ShapeDefinition[] = [
     defaults: { roundness: 50 },
     isLogo: true,
   },
+  
+  // Batch 7 - Corner/Curve Variations
+  {
+    id: 'cornercurves',
+    label: 'Corner Curves',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'cornerduo',
+    label: 'Corner Duo',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'swooshquad',
+    label: 'Swoosh Quad',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'curvedcross',
+    label: 'Curved Cross',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'wavecorner',
+    label: 'Wave Corner',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'arcquad',
+    label: 'Arc Quad',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
 ];
 
 // ────────────────────────────────────────────────────────────────────────────

@@ -42,6 +42,13 @@ import { ArrowDualLogo } from './ArrowDualLogo';
 import { DiagonalBarsLogo } from './DiagonalBarsLogo';
 import { ZigzagLogo } from './ZigzagLogo';
 import { LayerStackLogo } from './LayerStackLogo';
+// Batch 7 - Corner/Curve Variations
+import { CornerCurvesLogo } from './CornerCurvesLogo';
+import { CornerDuoLogo } from './CornerDuoLogo';
+import { SwooshQuadLogo } from './SwooshQuadLogo';
+import { CurvedCrossLogo } from './CurvedCrossLogo';
+import { WaveCornerLogo } from './WaveCornerLogo';
+import { ArcQuadLogo } from './ArcQuadLogo';
 
 import { ShapeGeneratorProps } from '../shapes/ShapeRegistry';
 
@@ -96,6 +103,14 @@ export const LOGO_REGISTRY: Record<string, React.ComponentType<ShapeGeneratorPro
   diagonalbars: DiagonalBarsLogo,
   zigzag: ZigzagLogo,
   layerstack: LayerStackLogo,
+  
+  // Batch 7 - Corner/Curve Variations
+  cornercurves: CornerCurvesLogo,
+  cornerduo: CornerDuoLogo,
+  swooshquad: SwooshQuadLogo,
+  curvedcross: CurvedCrossLogo,
+  wavecorner: WaveCornerLogo,
+  arcquad: ArcQuadLogo,
 };
 
 export const getLogoComponent = (id: string): React.ComponentType<ShapeGeneratorProps> | undefined => {

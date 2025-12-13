@@ -5,9 +5,12 @@ import { EditorConfig } from "@/store/use-store";
 import Link from "next/link";
 
 const GALLERY_SHAPES = [
-    'radial', 'flower', 'concentric', 'spiral', 
-    'polygon', 'wave', 'network', 'glitch', 
-    'orbit', 'pyramid', 'maze', 'knot'
+    // Production Ready Logos (Row 1)
+    'pinwheel', 'wavecurve', 'starframe', 'hexarrow',
+    // Mix of Aesthetic Shapes (Row 2)
+    'mandala', 'galaxy', 'infinity', 'crystal',
+    // More Production Ready Logos (Row 3)
+    'bolde', 'equalizer', 'pillstack', 'arcquad'
 ];
 
 export function GallerySection() {
@@ -24,16 +27,35 @@ export function GallerySection() {
                     // Deterministic seed based on name
                     const seed = shapeName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
                     
+                    // Curated color palette for each shape (aesthetic, vibrant)
+                    const colorPalettes = [
+                        // Row 1 - Production Logos (vibrant gradients)
+                        { primary: '#f97316', secondary: '#fb923c' }, // Orange gradient - pinwheel
+                        { primary: '#3b82f6', secondary: '#60a5fa' }, // Blue gradient - wavecurve
+                        { primary: '#a855f7', secondary: '#c084fc' }, // Purple gradient - starframe
+                        { primary: '#10b981', secondary: '#34d399' }, // Green gradient - hexarrow
+                        // Row 2 - Aesthetic Shapes (cosmic, mystical gradients)
+                        { primary: '#ec4899', secondary: '#f9a8d4' }, // Pink gradient - mandala
+                        { primary: '#6366f1', secondary: '#818cf8' }, // Indigo gradient - galaxy
+                        { primary: '#eab308', secondary: '#fbbf24' }, // Yellow gradient - infinity
+                        { primary: '#06b6d4', secondary: '#22d3ee' }, // Cyan gradient - crystal
+                        // Row 3 - More Production Logos (bold gradients)
+                        { primary: '#ef4444', secondary: '#f87171' }, // Red gradient - bolde
+                        { primary: '#14b8a6', secondary: '#2dd4bf' }, // Teal gradient - equalizer
+                        { primary: '#8b5cf6', secondary: '#a78bfa' }, // Purple gradient - pillstack
+                        { primary: '#f59e0b', secondary: '#fbbf24' }, // Amber gradient - arcquad
+                    ];
+                    
                     const config: EditorConfig = {
-                        primaryColor: ['#fb923c', '#ef4444', '#f59e0b', '#dc2626'][i % 4], // Orange/Red/Amber spectrum
-                        secondaryColor: '#ffffff',
+                        primaryColor: colorPalettes[i].primary,
+                        secondaryColor: colorPalettes[i].secondary,
                         strokeWidth: 2,
                         scale: 1,
-                        rotation: i * 15,
+                        rotation: i * 12,
                         roundness: 50,
                         radius: 35,
-                        count: 8 + (i % 5),
-                        seed: seed,
+                        count: 6 + (i % 4),
+                        seed: seed + i * 100,
                     };
 
                     return (
