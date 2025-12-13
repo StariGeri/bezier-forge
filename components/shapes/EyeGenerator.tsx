@@ -1,8 +1,9 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const EyeGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const EyeGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, secondaryColor, strokeWidth, rotation } = config;

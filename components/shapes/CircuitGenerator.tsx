@@ -2,11 +2,12 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const CircuitGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const CircuitGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
-  const { count, radius, primaryColor, strokeWidth, seed } = config;
+  const { count, primaryColor, strokeWidth, seed } = config;
 
   // PCB traces
   const traces = Math.max(3, count);

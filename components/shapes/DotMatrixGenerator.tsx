@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const DotMatrixGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const DotMatrixGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, seed } = config;

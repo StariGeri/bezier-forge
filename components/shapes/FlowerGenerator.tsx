@@ -3,14 +3,14 @@
 import { useEditorStore } from '@/store/use-store';
 import { polarToCartesian } from '@/lib/geometry';
 import { createSpline } from '@/lib/spline';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const FlowerGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const FlowerGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
-  const { count, radius, primaryColor, rotation, roundness } = config;
+  const { count, radius, primaryColor, rotation } = config;
 
   const petals = Math.max(3, count);
-  const petalWidth = roundness / 2; // Controls petal width
   const points = [];
   
   // To make a smooth flower, we alternate between tips and inner points

@@ -3,8 +3,9 @@
 import { useEditorStore } from '@/store/use-store';
 import { getSpiralPoints } from '@/lib/geometry';
 import { createSpline } from '@/lib/spline';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const VineGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const VineGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor, strokeWidth } = config;

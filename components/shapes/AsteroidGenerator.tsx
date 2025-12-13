@@ -4,8 +4,9 @@ import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
 import { polarToCartesian } from '@/lib/geometry';
 import { createSpline } from '@/lib/spline';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const AsteroidGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const AsteroidGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, secondaryColor, seed, rotation, roundness } = config;

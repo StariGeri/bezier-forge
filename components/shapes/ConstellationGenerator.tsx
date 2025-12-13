@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const ConstellationGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const ConstellationGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, strokeWidth, seed } = config;
@@ -18,7 +19,7 @@ export const ConstellationGenerator = ({ config: overrideConfig }: { config?: an
   }));
 
   // Connect stars with lines (connect to nearest neighbors)
-  const lines: JSX.Element[] = [];
+  const lines: React.ReactElement[] = [];
   const usedConnections = new Set<string>();
   
   starPositions.forEach((star, i) => {

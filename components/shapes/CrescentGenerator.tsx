@@ -1,8 +1,9 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const CrescentGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const CrescentGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, rotation, roundness } = config;
@@ -12,10 +13,6 @@ export const CrescentGenerator = ({ config: overrideConfig }: { config?: any }) 
   const outerR = radius;
   const innerR = radius * (0.3 + (roundness / 100) * 0.5); // Thickness varies with roundness
   const offset = radius * 0.3; // Offset of inner circle
-
-  // Create crescent using two arcs
-  const outerStartX = cx + outerR;
-  const outerStartY = cy;
   
   return (
     <g transform={`rotate(${rotation} ${cx} ${cy})`}>

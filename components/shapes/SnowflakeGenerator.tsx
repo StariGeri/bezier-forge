@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { polarToCartesian } from '@/lib/geometry';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const SnowflakeGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const SnowflakeGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, secondaryColor, strokeWidth, rotation, count } = config;
@@ -13,7 +14,7 @@ export const SnowflakeGenerator = ({ config: overrideConfig }: { config?: any })
   const arms = 6; // Classic snowflake symmetry
   const branchLevels = Math.max(2, Math.min(count / 4, 4));
 
-  const elements: JSX.Element[] = [];
+  const elements: React.ReactElement[] = [];
 
   // Generate each arm of the snowflake
   for (let arm = 0; arm < arms; arm++) {

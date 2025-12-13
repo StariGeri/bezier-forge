@@ -1,17 +1,17 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const SprocketGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const SprocketGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
-  const { count, radius, primaryColor, secondaryColor, strokeWidth, rotation, roundness } = config;
+  const { count, radius, primaryColor, secondaryColor, strokeWidth, rotation } = config;
 
   const teeth = Math.max(8, Math.min(20, count));
   const outerRadius = radius * 1.1;
   const valleyRadius = radius * 0.85;
   const holeRadius = radius * 0.35;
-  const toothRadius = (outerRadius - valleyRadius) * 0.5 * (1 + roundness * 0.1);
 
   // Generate sprocket path with rounded teeth
   const points: string[] = [];

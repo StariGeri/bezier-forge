@@ -2,10 +2,11 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
 let keyCounter = 0;
 
-export const CoralGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const CoralGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, strokeWidth, seed } = config;
@@ -17,7 +18,7 @@ export const CoralGenerator = ({ config: overrideConfig }: { config?: any }) => 
   // Reset counter for each render
   keyCounter = 0;
 
-  const generateBranch = (startX: number, startY: number, angle: number, length: number, depth: number, branchSeed: number): JSX.Element[] => {
+  const generateBranch = (startX: number, startY: number, angle: number, length: number, depth: number, branchSeed: number): React.ReactElement[] => {
     if (depth <= 0 || length < 3) return [];
 
     const endX = startX + Math.cos((angle * Math.PI) / 180) * length;
@@ -25,7 +26,7 @@ export const CoralGenerator = ({ config: overrideConfig }: { config?: any }) => 
 
     const currentKey = keyCounter++;
 
-    const elements: JSX.Element[] = [
+    const elements: React.ReactElement[] = [
       <line
         key={`branch-${currentKey}`}
         x1={startX}

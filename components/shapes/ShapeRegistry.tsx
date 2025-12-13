@@ -26,7 +26,6 @@ import { OrbitGenerator } from './OrbitGenerator';
 import { IsoCubeGenerator } from './IsoCubeGenerator';
 import { PyramidGenerator } from './PyramidGenerator';
 import { CylinderGenerator } from './CylinderGenerator';
-import { StairsGenerator } from './StairsGenerator';
 import { HexStackGenerator } from './HexStackGenerator';
 import { TorusGenerator } from './TorusGenerator';
 // Batch E
@@ -100,7 +99,6 @@ import { PistonGenerator } from './PistonGenerator';
 // Batch P - Light/Optical
 import { LensFlareGenerator } from './LensFlareGenerator';
 import { BokehGenerator } from './BokehGenerator';
-import { PrismGenerator } from './PrismGenerator';
 // Batch Q - New Shapes
 import { AnchorGenerator } from './AnchorGenerator';
 import { SnowflakeGenerator } from './SnowflakeGenerator';
@@ -147,7 +145,6 @@ export const SHAPE_REGISTRY: Record<string, React.ComponentType<ShapeGeneratorPr
   isocube: IsoCubeGenerator,
   pyramid: PyramidGenerator,
   cylinder: CylinderGenerator,
-  stairs: StairsGenerator,
   hexstack: HexStackGenerator,
   torus: TorusGenerator,
   
@@ -233,7 +230,6 @@ export const SHAPE_REGISTRY: Record<string, React.ComponentType<ShapeGeneratorPr
   // Light/Optical
   lensflare: LensFlareGenerator,
   bokeh: BokehGenerator,
-  prism: PrismGenerator,
   
   // New Shapes
   anchor: AnchorGenerator,
@@ -257,7 +253,7 @@ export const SHAPE_CATEGORIES: ShapeCategory[] = [
   { name: 'Geometric', shapes: ['polygon', 'concentric', 'spiral', 'burst', 'mosaic', 'symmetry'] },
   { name: 'Organic', shapes: ['flower', 'wave', 'liquid', 'amoeba', 'cloud', 'vine'] },
   { name: 'Tech', shapes: ['circuit', 'glitch', 'databars', 'network', 'pixel', 'orbit'] },
-  { name: '3D', shapes: ['isocube', 'pyramid', 'cylinder', 'stairs', 'hexstack', 'torus'] },
+  { name: '3D', shapes: ['isocube', 'pyramid', 'cylinder', 'hexstack', 'torus'] },
   { name: 'Architectural', shapes: ['arch', 'pillar', 'maze', 'knot', 'weave', 'arrow'] },
   { name: 'Abstract', shapes: ['crescent', 'ripple', 'fragment', 'stripe', 'dotmatrix', 'crosshatch'] },
   { name: 'Nature', shapes: ['leaf', 'coral', 'seed', 'mountain', 'feather', 'shell', 'snowflake'] },
@@ -269,5 +265,5 @@ export const SHAPE_CATEGORIES: ShapeCategory[] = [
   { name: 'Symbols', shapes: ['infinity', 'shield', 'lightning', 'target', 'heart', 'eye', 'anchor', 'compass', 'hourglass', 'crown'] },
   { name: 'Cultural', shapes: ['mandala', 'celtic', 'seigaiha', 'arabesque'] },
   { name: 'Industrial', shapes: ['gear', 'turbine', 'sprocket', 'piston'] },
-  { name: 'Optical', shapes: ['lensflare', 'bokeh', 'prism'] },
+  { name: 'Optical', shapes: ['lensflare', 'bokeh'] },
 ];

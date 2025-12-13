@@ -6,6 +6,8 @@ import { EditorConfig } from "@/store/use-store";
 import { Slider } from "@/components/ui/slider";
 import { motion } from "framer-motion";
 
+const ShapeComponent = getShapeComponent("flower"); // Using 'flower' as base
+
 export function HeroGenerator() {
   // Config state for the shape
   const [config, setConfig] = useState<EditorConfig>({
@@ -15,17 +17,13 @@ export function HeroGenerator() {
     scale: 1,
     rotation: 0,
     roundness: 50,
-    radius: 35,
+    radius: 30,
     count: 12,
     seed: 1234,
   });
 
   const [complexity, setComplexity] = useState(50);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Auto-morph effect
   useEffect(() => {
@@ -39,20 +37,6 @@ export function HeroGenerator() {
 
     return () => clearInterval(interval);
   }, []);
-
-  // Map complexity slider to multiple parameters
-  useEffect(() => {
-    setConfig((prev) => ({
-      ...prev,
-      count: Math.max(3, Math.floor(complexity / 4)), // 3 to 25
-      roundness: complexity, // 0 to 100
-      radius: 20 + (complexity / 100) * 20, // 20 to 40
-    }));
-  }, [complexity]);
-
-  const ShapeComponent = getShapeComponent("flower"); // Using 'flower' as base
-
-  if (!mounted) return null;
 
   return (
     <div className="relative w-full h-[500px] flex flex-col items-center justify-center">
@@ -90,7 +74,16 @@ export function HeroGenerator() {
             value={[complexity]} 
             max={100} 
             step={1} 
-            onValueChange={(vals) => setComplexity(vals[0])}
+            onValueChange={(vals) => {
+              const newComplexity = vals[0];
+              setComplexity(newComplexity);
+              setConfig((prev) => ({
+                ...prev,
+                count: Math.max(3, Math.floor(newComplexity / 4)),
+                roundness: newComplexity,
+                radius: 20 + (newComplexity / 100) * 20,
+              }));
+            }}
             className="cursor-pointer"
         />
       </div>

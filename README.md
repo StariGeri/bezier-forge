@@ -28,7 +28,7 @@ BezierForge is an open-source, browser-based tool for creating unique, algorithm
 | **Geometric** | Polygon, Concentric, Spiral, Burst, Mosaic, Symmetry |
 | **Organic** | Flower, Wave, Liquid Drop, Amoeba, Cloud, Vine |
 | **Tech** | Circuit, Glitch, Data Bars, Network, Pixel Grid, Orbit |
-| **3D** | Isometric Cube, Pyramid, Cylinder, Stairs, Hex Stack, Torus |
+| **3D** | Isometric Cube, Pyramid, Cylinder, Hex Stack, Torus |
 | **Architectural** | Arch, Pillar, Maze, Knot, Weave, Arrow |
 | **Abstract** | Crescent, Ripple, Fragment, Stripe, Dot Matrix, Crosshatch |
 | **Nature** | Leaf, Coral, Seed, Mountain, Feather, Shell |

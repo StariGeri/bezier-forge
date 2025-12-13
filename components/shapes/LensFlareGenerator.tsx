@@ -2,8 +2,8 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
-
-export const LensFlareGenerator = ({ config: overrideConfig }: { config?: any }) => {
+import { ShapeGeneratorProps } from './ShapeRegistry';
+export const LensFlareGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor, rotation, seed } = config;

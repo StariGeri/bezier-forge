@@ -3,13 +3,14 @@
 import { useEditorStore } from '@/store/use-store';
 import { polarToCartesian } from '@/lib/geometry';
 
-export const NetworkGenerator = ({ config: overrideConfig }: { config?: any }) => {
+import { ShapeGeneratorProps } from './ShapeRegistry';
+export const NetworkGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, strokeWidth } = config;
 
   const nodes = Math.max(4, count);
-  const points = [];
+  const points: { x: number; y: number }[] = [];
   
   for (let i = 0; i < nodes; i++) {
       const angle = (i / nodes) * 360;

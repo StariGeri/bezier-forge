@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { isometricToCartesian } from '@/lib/geometry';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const PyramidGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const PyramidGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor } = config;
@@ -17,7 +18,6 @@ export const PyramidGenerator = ({ config: overrideConfig }: { config?: any }) =
             // Draw from bottom up or top down? Top down (smallest) is better for z-index
             const level = levels - 1 - i;
             const size = (level + 1) * step;
-            const height = (levels - level) * step * 0.5; // Stacking height
             
             // Base square at z = height
             const t1 = isometricToCartesian(-size, -size, 0, 50, 50 + (level * 5)); // Manual y-shift for stacking

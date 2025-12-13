@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const EqualizerGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const EqualizerGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor, rotation, seed, roundness } = config;

@@ -4,8 +4,9 @@ import { useEditorStore } from '@/store/use-store';
 import { polarToCartesian } from '@/lib/geometry';
 import { seededRandom } from '@/lib/random';
 import { createSpline } from '@/lib/spline';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const MorphGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const MorphGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, secondaryColor, seed, roundness } = config;

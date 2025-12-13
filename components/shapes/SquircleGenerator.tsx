@@ -1,11 +1,12 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const SquircleGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const SquircleGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
-  const { radius, primaryColor, secondaryColor, strokeWidth, rotation, roundness } = config;
+  const { radius, primaryColor, strokeWidth, rotation, roundness } = config;
 
   const cx = 50;
   const cy = 50;

@@ -13,7 +13,7 @@ export function Footer() {
                     Loved this tool?
                 </h3>
                 <Link 
-                    href="https://github.com/starigeri/logo-shaper" 
+                    href="https://github.com/starigeri/bezier-forge" 
                     target="_blank"
                     className="group flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all w-fit"
                 >
@@ -27,7 +27,7 @@ export function Footer() {
                     Created by <Link href="https://staridev.hu" target="_blank" className="text-white hover:text-orange-400 transition-colors font-semibold">StariGeri</Link>
                 </p>
                 <div className="flex items-center gap-6 text-sm text-zinc-500 justify-end">
-                    <Link href="https://github.com/starigeri/logo-shaper" className="hover:text-white transition-colors">
+                    <Link href="https://github.com/starigeri/bezier-forge" className="hover:text-white transition-colors">
                 Source Code
             </Link>
                 </div>

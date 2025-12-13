@@ -1,11 +1,11 @@
 "use client";
 
-import { useEditorStore } from '@/store/use-store';
+import { useEditorStore, EditorConfig } from '@/store/use-store';
 import { createSpline } from '@/lib/spline';
 import { seededRandom } from '@/lib/random';
 import { polarToCartesian } from '@/lib/geometry';
 
-export const AmoebaGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const AmoebaGenerator = ({ config: overrideConfig }: { config?: EditorConfig }) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, seed } = config;

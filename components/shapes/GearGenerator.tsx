@@ -1,8 +1,9 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const GearGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const GearGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor, strokeWidth, rotation } = config;

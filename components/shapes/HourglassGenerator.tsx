@@ -2,8 +2,8 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
-
-export const HourglassGenerator = ({ config: overrideConfig }: { config?: any }) => {
+import { ShapeGeneratorProps } from './ShapeRegistry';
+export const HourglassGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, secondaryColor, strokeWidth, rotation, seed, count } = config;
@@ -28,7 +28,7 @@ export const HourglassGenerator = ({ config: overrideConfig }: { config?: any })
   const sandLevel = seededRandom(seed) * 0.8 + 0.1;
 
   // Generate sand particles
-  const sandParticles: JSX.Element[] = [];
+  const sandParticles: React.ReactElement[] = [];
   const particleCount = Math.max(5, count / 2);
 
   for (let i = 0; i < particleCount; i++) {

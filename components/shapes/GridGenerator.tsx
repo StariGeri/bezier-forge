@@ -1,8 +1,9 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const GridGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const GridGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, roundness, primaryColor, secondaryColor } = config;

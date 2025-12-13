@@ -1,12 +1,15 @@
 "use client";
 
 import { useEditorStore } from "@/store/use-store";
-import { getShapeComponent } from "@/components/shapes/ShapeRegistry";
-import { forwardRef } from "react";
+import { SHAPE_REGISTRY } from "@/components/shapes/ShapeRegistry";
+import { forwardRef, useMemo } from "react";
 
 export const Canvas = forwardRef<SVGSVGElement>((props, ref) => {
   const { selectedShapeId, config } = useEditorStore();
-  const ShapeComponent = getShapeComponent(selectedShapeId || "radial");
+  const ShapeComponent = useMemo(
+    () => SHAPE_REGISTRY[selectedShapeId || "radial"] || SHAPE_REGISTRY.radial,
+    [selectedShapeId]
+  );
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-white/50 backdrop-blur-sm rounded-lg border shadow-sm p-8">

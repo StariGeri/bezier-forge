@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { polarToCartesian } from '@/lib/geometry';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const CompassGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const CompassGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, secondaryColor, strokeWidth, rotation, count } = config;
@@ -14,7 +15,7 @@ export const CompassGenerator = ({ config: overrideConfig }: { config?: any }) =
   const interCardinalCount = 4; // NE, SE, SW, NW
   const minorPoints = Math.max(0, Math.min(count - 8, 8)); // Additional minor points
 
-  const elements: JSX.Element[] = [];
+  const elements: React.ReactElement[] = [];
 
   // Outer circle
   elements.push(

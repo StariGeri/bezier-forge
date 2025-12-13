@@ -2,11 +2,12 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const MazeGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const MazeGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
-  const { count, radius, primaryColor, seed, strokeWidth } = config;
+  const { count, radius, primaryColor, strokeWidth, seed } = config;
 
   // Simple randomized walls on a grid
   const gridSize = Math.max(5, count);

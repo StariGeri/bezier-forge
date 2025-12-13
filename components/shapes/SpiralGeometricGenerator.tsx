@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { getSpiralPoints } from '@/lib/geometry';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const SpiralGeometricGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const SpiralGeometricGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, rotation, primaryColor, strokeWidth } = config;

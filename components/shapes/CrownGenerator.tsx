@@ -1,8 +1,9 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const CrownGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const CrownGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, secondaryColor, strokeWidth, rotation, count } = config;
@@ -53,7 +54,7 @@ export const CrownGenerator = ({ config: overrideConfig }: { config?: any }) => 
   crownPath += ` Z`;
 
   // Jewel decorations on peaks
-  const jewels: JSX.Element[] = [];
+  const jewels: React.ReactElement[] = [];
   for (let i = 0; i < points; i++) {
     const jewelX = left + peakWidth * (i + 0.5);
     const jewelY = top + 4 * scale;

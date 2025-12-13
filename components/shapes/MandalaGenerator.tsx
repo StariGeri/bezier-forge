@@ -1,11 +1,12 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const MandalaGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const MandalaGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
-  const { count, radius, primaryColor, secondaryColor, strokeWidth, rotation, seed } = config;
+  const { count, radius, primaryColor, secondaryColor, strokeWidth, rotation } = config;
 
   const layers = Math.max(2, Math.min(5, Math.floor(count / 3)));
   const petalsPerLayer = Math.max(6, count);

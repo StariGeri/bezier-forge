@@ -1,11 +1,12 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const CloudGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const CloudGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
-  const { count, radius, primaryColor } = config;
+  const { count, primaryColor, radius } = config;
   
   // Simple cloud: multiple circles
   const puffs = Math.max(3, count);

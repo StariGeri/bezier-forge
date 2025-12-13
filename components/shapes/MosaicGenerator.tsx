@@ -2,13 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
-import { d3Delaunay } from 'd3-delaunay';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-// Note: d3-delaunay is not installed, so we'll simulate a simple voronoi-ish or mosaic pattern 
-// using a grid with random offsets to avoid adding a heavy dependency if not needed.
-// Or we can use a simpler approach: Random triangles.
-
-export const MosaicGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const MosaicGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor, seed } = config;

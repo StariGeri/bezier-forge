@@ -1,8 +1,7 @@
 "use client";
 
-import { SHAPE_REGISTRY, getShapeComponent } from "@/components/shapes/ShapeRegistry";
+import { getShapeComponent } from "@/components/shapes/ShapeRegistry";
 import { EditorConfig } from "@/store/use-store";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const GALLERY_SHAPES = [
@@ -12,12 +11,6 @@ const GALLERY_SHAPES = [
 ];
 
 export function GallerySection() {
-    // Generate static configs for hydration consistency
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
-
-    if (!mounted) return null;
-
     return (
         <section className="py-24 bg-zinc-950">
             <div className="container mx-auto px-6 mb-12 text-center">

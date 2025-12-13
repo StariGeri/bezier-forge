@@ -4,8 +4,9 @@ import { useEditorStore } from '@/store/use-store';
 import { createSpline } from '@/lib/spline';
 import { polarToCartesian } from '@/lib/geometry';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const BlobGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const BlobGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, seed, roundness } = config;

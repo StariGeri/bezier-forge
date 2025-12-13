@@ -1,18 +1,13 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
-import { polarToCartesian } from '@/lib/geometry';
 import { createSpline } from '@/lib/spline';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const KnotGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const KnotGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, strokeWidth } = config;
-
-  // Trefoil knot parametric equation
-  // x = sin(t) + 2sin(2t)
-  // y = cos(t) - 2cos(2t)
-  // But we want to control loops with 'count'
   
   const points = [];
   const resolution = 100;

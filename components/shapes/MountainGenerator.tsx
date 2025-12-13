@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const MountainGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const MountainGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor, seed } = config;
@@ -13,7 +14,6 @@ export const MountainGenerator = ({ config: overrideConfig }: { config?: any }) 
 
   const generateMountainPath = (layer: number) => {
     const points: string[] = [`M 0 ${baseY}`];
-    const layerOffset = layer * 10;
     const heightFactor = 1 - layer * 0.3;
 
     for (let i = 0; i < peaks; i++) {

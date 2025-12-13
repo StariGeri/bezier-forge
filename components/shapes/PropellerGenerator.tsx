@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { polarToCartesian } from '@/lib/geometry';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const PropellerGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const PropellerGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor, rotation } = config;
@@ -11,7 +12,6 @@ export const PropellerGenerator = ({ config: overrideConfig }: { config?: any })
   const blades = Math.max(2, Math.min(count, 6));
   const cx = 50;
   const cy = 50;
-  const bladeWidth = 8;
 
   const bladePaths = [];
   

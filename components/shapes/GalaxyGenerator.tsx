@@ -3,8 +3,9 @@
 import { useEditorStore } from '@/store/use-store';
 import { polarToCartesian } from '@/lib/geometry';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const GalaxyGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const GalaxyGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor, rotation, seed } = config;
@@ -14,7 +15,7 @@ export const GalaxyGenerator = ({ config: overrideConfig }: { config?: any }) =>
   const cx = 50;
   const cy = 50;
 
-  const spiralPoints: JSX.Element[] = [];
+  const spiralPoints: React.ReactElement[] = [];
   
   for (let arm = 0; arm < arms; arm++) {
     const armOffset = (arm / arms) * 360;

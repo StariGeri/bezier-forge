@@ -26,7 +26,7 @@ interface EditorState {
   
   // Actions
   setShape: (id: string) => void;
-  updateConfig: (key: keyof EditorConfig, value: any) => void;
+  updateConfig: <K extends keyof EditorConfig>(key: K, value: EditorConfig[K]) => void;
   setExportSize: (size: ExportSize) => void;
   randomize: () => void;
 }

@@ -16,7 +16,6 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Color from 'color';
 
-// Moved outside to prevent re-renders closing the Popover
 const ColorInput = ({ 
     label, 
     value, 

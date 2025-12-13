@@ -3,8 +3,9 @@
 import { useEditorStore } from '@/store/use-store';
 import { createSpline } from '@/lib/spline';
 import { seededRandom } from '@/lib/random';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const LiquidDropGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const LiquidDropGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, seed } = config;

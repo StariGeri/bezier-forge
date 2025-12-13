@@ -71,10 +71,10 @@ export default function GalleryPage() {
                             <h2 className="text-2xl font-bold text-white">
                                 {category.name}
                             </h2>
+                            <div className="flex-1 h-px bg-zinc-800/50" />
                             <span className="inline-flex items-center rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs font-mono text-zinc-400">
                                 {category.shapes.length}
                             </span>
-                            <div className="flex-1 h-px bg-zinc-800/50" />
                         </div>
 
                         {/* Shapes Grid */}

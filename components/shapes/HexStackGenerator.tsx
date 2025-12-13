@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { isometricToCartesian } from '@/lib/geometry';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const HexStackGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const HexStackGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, secondaryColor } = config;

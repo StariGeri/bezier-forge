@@ -1,9 +1,9 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
-import { polarToCartesian } from '@/lib/geometry';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const ArrowHeadGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const ArrowHeadGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, primaryColor, rotation } = config;

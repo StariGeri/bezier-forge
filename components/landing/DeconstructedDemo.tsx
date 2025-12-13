@@ -4,6 +4,26 @@ import { useState } from "react";
 import { getShapeComponent } from "@/components/shapes/ShapeRegistry";
 import { EditorConfig } from "@/store/use-store";
 
+const InteractiveValue = ({ 
+  param, 
+  value, 
+  setHoveredParam
+}: { 
+  param: string, 
+  value: string | number,
+  setHoveredParam: (param: string | null) => void
+}) => (
+  <span 
+    className="text-red-400 cursor-help border-b border-red-500/30 hover:bg-red-500/20 hover:border-red-500 transition-all px-1 rounded"
+    onMouseEnter={() => setHoveredParam(param)}
+    onMouseLeave={() => setHoveredParam(null)}
+  >
+    {value}
+  </span>
+);
+
+const ShapeComponent = getShapeComponent("flower");
+
 export function DeconstructedDemo() {
   const [hoveredParam, setHoveredParam] = useState<string | null>(null);
   
@@ -30,26 +50,6 @@ export function DeconstructedDemo() {
     // We don't have direct tension in EditorConfig, using radius as proxy or just visual
     config.radius = 45; 
   }
-
-  const ShapeComponent = getShapeComponent("flower");
-
-  const InteractiveValue = ({ 
-    param, 
-    value, 
-    label 
-  }: { 
-    param: string, 
-    value: string | number,
-    label?: string 
-  }) => (
-    <span 
-      className="text-red-400 cursor-help border-b border-red-500/30 hover:bg-red-500/20 hover:border-red-500 transition-all px-1 rounded"
-      onMouseEnter={() => setHoveredParam(param)}
-      onMouseLeave={() => setHoveredParam(null)}
-    >
-      {value}
-    </span>
-  );
 
   return (
     <section className="py-24 bg-zinc-950 border-b border-white/10">
@@ -82,19 +82,19 @@ export function DeconstructedDemo() {
                 <div className="text-zinc-500 mb-2">{'// config.json'}</div>
                 <div className="text-blue-300">{'{'}</div>
                 <div className="pl-4">
-                    <span className="text-sky-300">"shape"</span>: <span className="text-green-300">"spline-flower"</span>,
+                    <span className="text-sky-300">&quot;shape&quot;</span>: <span className="text-green-300">&quot;spline-flower&quot;</span>,
                 </div>
                 <div className="pl-4">
-                    <span className="text-sky-300">"points"</span>: <InteractiveValue param="count" value={12} />,
+                    <span className="text-sky-300">&quot;points&quot;</span>: <InteractiveValue param="count" value={12} setHoveredParam={setHoveredParam} />,
                 </div>
                 <div className="pl-4">
-                    <span className="text-sky-300">"tension"</span>: <InteractiveValue param="roundness" value={0.5} />,
+                    <span className="text-sky-300">&quot;tension&quot;</span>: <InteractiveValue param="roundness" value={0.5} setHoveredParam={setHoveredParam} />,
                 </div>
                 <div className="pl-4">
-                    <span className="text-sky-300">"bloom"</span>: <InteractiveValue param="tension" value={30} />,
+                    <span className="text-sky-300">&quot;bloom&quot;</span>: <InteractiveValue param="tension" value={30} setHoveredParam={setHoveredParam} />,
                 </div>
                 <div className="pl-4">
-                    <span className="text-sky-300">"seed"</span>: <span className="text-green-300">"bezier-v1"</span>
+                    <span className="text-sky-300">&quot;seed&quot;</span>: <span className="text-green-300">&quot;bezier-v1&quot;</span>
                 </div>
                 <div className="text-blue-300">{'}'}</div>
              </div>

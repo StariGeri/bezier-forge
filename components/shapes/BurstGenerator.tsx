@@ -2,8 +2,9 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { polarToCartesian } from '@/lib/geometry';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const BurstGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const BurstGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { count, radius, rotation, primaryColor, roundness } = config;

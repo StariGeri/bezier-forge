@@ -1,11 +1,11 @@
 "use client";
 
 import { useEditorStore } from '@/store/use-store';
-
-export const SplitRingGenerator = ({ config: overrideConfig }: { config?: any }) => {
+import { ShapeGeneratorProps } from './ShapeRegistry';
+export const SplitRingGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
-  const { radius, primaryColor, secondaryColor, strokeWidth, rotation } = config;
+  const { radius, primaryColor, strokeWidth, rotation } = config;
 
   const cx = 50;
   const cy = 50;

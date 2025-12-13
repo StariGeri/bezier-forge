@@ -2,20 +2,14 @@
 
 import { useEditorStore } from '@/store/use-store';
 import { isometricToCartesian } from '@/lib/geometry';
+import { ShapeGeneratorProps } from './ShapeRegistry';
 
-export const IsoCubeGenerator = ({ config: overrideConfig }: { config?: any }) => {
+export const IsoCubeGenerator = ({ config: overrideConfig }: ShapeGeneratorProps) => {
   const store = useEditorStore();
   const config = overrideConfig || store.config;
   const { radius, primaryColor, secondaryColor } = config;
 
   const size = radius;
-  
-  // Vertices for a cube at (0,0,0) with size
-  const center = isometricToCartesian(0, 0, 0, 50, 50);
-  const top = isometricToCartesian(0, 0, size, 50, 50);
-  const right = isometricToCartesian(size, 0, 0, 50, 50);
-  const front = isometricToCartesian(size, size, 0, 50, 50); // This is actually further out
-  // Let's draw faces instead of just vertices
   
   // Top Face (z = size)
   const t1 = isometricToCartesian(-size, -size, size, 50, 50);

@@ -14,9 +14,13 @@ export const polarToCartesian = (
 ) => {
   const angleInRadians = degreesToRadians(angleInDegrees);
 
+  // Round to 3 decimal places to avoid hydration mismatches
+  const x = centerX + radius * Math.cos(angleInRadians);
+  const y = centerY + radius * Math.sin(angleInRadians);
+
   return {
-    x: centerX + radius * Math.cos(angleInRadians),
-    y: centerY + radius * Math.sin(angleInRadians),
+    x: Math.round(x * 1000) / 1000,
+    y: Math.round(y * 1000) / 1000,
   };
 };
 
@@ -51,44 +55,46 @@ export const isometricToCartesian = (
   const isoX = (x - y) * Math.cos(angle);
   const isoY = (x + y) * Math.sin(angle) - z;
 
+  const finalX = centerX + isoX * scale;
+  const finalY = centerY + isoY * scale;
+
   return {
-    x: centerX + isoX * scale,
-    y: centerY + isoY * scale,
+    x: Math.round(finalX * 1000) / 1000,
+    y: Math.round(finalY * 1000) / 1000,
   };
 };
 
 // Generates points for a regular polygon
 export const getRegularPolygonPoints = (
-  sides: number,
   radius: number,
+  sides: number,
   centerX: number = 50,
   centerY: number = 50,
-  rotationOffset: number = 0
+  rotation: number = 0
 ) => {
   const points = [];
   for (let i = 0; i < sides; i++) {
-    const angle = (i / sides) * 360 + rotationOffset;
+    const angle = (i / sides) * 360 + rotation;
     points.push(polarToCartesian(centerX, centerY, radius, angle));
   }
   return points;
 };
 
-// Generates points for a spiral
 export const getSpiralPoints = (
   turns: number,
   pointsPerTurn: number,
   maxRadius: number,
   centerX: number = 50,
   centerY: number = 50,
-  rotationOffset: number = 0
+  rotation: number = 0
 ) => {
   const points = [];
-  const totalPoints = turns * pointsPerTurn;
+  const totalPoints = Math.floor(turns * pointsPerTurn);
   
   for (let i = 0; i < totalPoints; i++) {
-    const progress = i / totalPoints;
-    const angle = progress * turns * 360 + rotationOffset;
-    const radius = progress * maxRadius;
+    const t = i / totalPoints; // 0 to 1
+    const angle = t * turns * 360 + rotation;
+    const radius = t * maxRadius;
     points.push(polarToCartesian(centerX, centerY, radius, angle));
   }
   return points;
