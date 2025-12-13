@@ -6,7 +6,7 @@ import { useEditorStore, ExportSize } from "@/store/use-store";
 import { Canvas } from "@/components/editor-ui/Canvas";
 import { ControlPanel } from "@/components/editor-ui/ControlPanel";
 import { Button } from "@/components/ui/button";
-import { Download, ArrowLeft, Copy, ChevronDown } from "lucide-react";
+import { Download, ArrowLeft, Copy, ChevronDown, Share2 } from "lucide-react";
 import Link from "next/link";
 import { 
   downloadSvg, 
@@ -14,7 +14,8 @@ import {
   copyTextToClipboard, 
 } from "@/lib/download";
 import { svgStringToJsx } from "@/lib/svg-to-jsx";
-import Image from "next/image";
+import { configToUrl } from "@/lib/url-state";
+import { toast } from "@/lib/toast";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +25,9 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
+import { useUrlSync } from "@/hooks/use-url-sync";
+import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
+import { KeyboardShortcutsHelp } from "@/components/editor-ui/KeyboardShortcutsHelp";
 
 const EXPORT_SIZES: { value: ExportSize; label: string }[] = [
   { value: 32, label: "32 × 32" },
@@ -38,8 +42,10 @@ const EXPORT_SIZES: { value: ExportSize; label: string }[] = [
 
 export default function EditorPage() {
   const params = useParams();
-  const { setShape, exportSize } = useEditorStore();
+  const { setShape, exportSize, randomize, config } = useEditorStore();
   const svgRef = useRef<SVGSVGElement>(null);
+  
+  useUrlSync();
 
   useEffect(() => {
     if (params.shapeId) {
@@ -50,6 +56,7 @@ export default function EditorPage() {
   const handleDownloadSvg = (size: number) => {
       if (!svgRef.current) return;
       downloadSvg(svgRef.current, `logo-${params.shapeId}`, size);
+      toast.success(`Downloaded ${size}×${size} SVG`);
   };
 
   const handleCopySvg = async () => {
@@ -57,10 +64,10 @@ export default function EditorPage() {
     const source = getSvgString(svgRef.current, exportSize);
     try {
         await copyTextToClipboard(source);
-        alert("SVG copied to clipboard!");
+        toast.success("SVG copied to clipboard!");
     } catch (e) {
         console.error(e);
-        alert("Failed to copy SVG to clipboard.");
+        toast.error("Failed to copy SVG to clipboard.");
     }
   };
 
@@ -70,12 +77,29 @@ export default function EditorPage() {
     try {
         const jsx = svgStringToJsx(source);
         await copyTextToClipboard(jsx);
-        alert("JSX copied to clipboard!");
+        toast.success("JSX copied to clipboard!");
     } catch (e) {
         console.error(e);
-        alert("Failed to copy JSX to clipboard.");
+        toast.error("Failed to copy JSX to clipboard.");
     }
   };
+
+  const handleShare = async () => {
+    const url = configToUrl(window.location.href.split('?')[0], config);
+    try {
+      await copyTextToClipboard(url);
+      toast.success("Link copied to clipboard!");
+    } catch (e) {
+      console.error(e);
+      toast.error("Failed to copy link.");
+    }
+  };
+
+  useKeyboardShortcuts({
+    onDownload: () => handleDownloadSvg(exportSize),
+    onCopy: handleCopySvg,
+    onRandomize: randomize,
+  });
 
   return (
     <div className="h-screen w-full flex flex-col bg-zinc-50">
@@ -86,8 +110,15 @@ export default function EditorPage() {
                 <ArrowLeft size={20} />
             </Link>
             <h1 className="font-bold text-lg capitalize">{params.shapeId} Editor</h1>
+            <KeyboardShortcutsHelp />
         </div>
         <div className="flex items-center gap-3">
+            {/* Share Button */}
+            <Button variant="outline" size="sm" onClick={handleShare}>
+                <Share2 className="mr-2 h-4 w-4" />
+                Share
+            </Button>
+
             {/* Copy Dropdown */}
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>

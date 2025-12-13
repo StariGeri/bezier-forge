@@ -9,8 +9,8 @@ export function FeatureStrip() {
     },
     {
       icon: ClipboardCopy,
-      title: "Copy as JSX",
-      description: "Export directly to a React component. Paste it into your codebase and go."
+      title: "Copy as JSX or SVG",
+      description: "Export directly to a React component or SVG. Paste it into your codebase and go."
     },
     {
       icon: SlidersHorizontal,

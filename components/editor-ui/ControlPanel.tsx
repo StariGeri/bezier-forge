@@ -16,6 +16,21 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Color from 'color';
 import { getShapeControls, ControlDef, SliderControlDef } from '@/components/shapes/ShapeDefinitions';
+import { useState, useEffect } from "react";
+import { BUILT_IN_PRESETS, Preset } from "@/lib/presets";
+import { presetManager } from "@/lib/preset-manager";
+import { SavePresetDialog } from "./SavePresetDialog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Trash, Save } from "lucide-react";
+import { toast } from "@/lib/toast";
 
 // ────────────────────────────────────────────────────────────────────────────
 // Color Input Component
@@ -152,13 +167,51 @@ const ControlRenderer = ({
 
 export const ControlPanel = () => {
     const { selectedShapeId, config, updateConfig, randomize } = useEditorStore();
+    const [userPresets, setUserPresets] = useState<Preset[]>([]);
+    const [saveDialogOpen, setSaveDialogOpen] = useState(false);
     
+    // Load user presets on mount
+    useEffect(() => {
+        // Use setTimeout to avoid synchronous setState warning
+        setTimeout(() => {
+            setUserPresets(presetManager.getUserPresets());
+        }, 0);
+    }, []);
+
+    const refreshPresets = () => {
+        setUserPresets(presetManager.getUserPresets());
+    };
+
     // Get controls for the selected shape
     const controls = getShapeControls(selectedShapeId || 'radial');
     
     // Separate color controls from slider controls for grouping
     const colorControls = controls.filter((c) => c.type === 'color');
     const sliderControls = controls.filter((c) => c.type === 'slider');
+
+    const handleApplyPreset = (presetId: string) => {
+        const allPresets = [...(BUILT_IN_PRESETS.universal || []), ...userPresets];
+        const preset = allPresets.find(p => p.id === presetId);
+        
+        if (preset) {
+            // Only apply colors from the preset
+            if (preset.config.primaryColor) {
+                updateConfig('primaryColor', preset.config.primaryColor);
+            }
+            if (preset.config.secondaryColor) {
+                updateConfig('secondaryColor', preset.config.secondaryColor);
+            }
+            
+            toast.success(`Applied "${preset.name}" colors`);
+        }
+    };
+
+    const handleDeletePreset = (e: React.MouseEvent, id: string) => {
+        e.stopPropagation();
+        presetManager.deleteUserPreset(id);
+        refreshPresets();
+        toast.success("Preset deleted");
+    };
 
     return (
         <Card className="w-full h-full overflow-y-auto border-0 shadow-none">
@@ -168,11 +221,66 @@ export const ControlPanel = () => {
             <CardContent className="space-y-6">
                 
                 {/* Actions */}
-                <div className="flex gap-2">
-                    <Button onClick={randomize} variant="outline" className="flex-1">
-                        Randomize
-                    </Button>
+                <div className="flex flex-col gap-2">
+                    {/* Presets Dropdown */}
+                    <div className="space-y-2">
+                        <Label>Presets</Label>
+                        <Select onValueChange={handleApplyPreset}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select a preset" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Built-in</SelectLabel>
+                                    {BUILT_IN_PRESETS.universal?.map(preset => (
+                                        <SelectItem key={preset.id} value={preset.id}>
+                                            {preset.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectGroup>
+                                {userPresets.length > 0 && (
+                                    <SelectGroup>
+                                        <SelectLabel>My Presets</SelectLabel>
+                                        {userPresets.map(preset => (
+                                            <div key={preset.id} className="flex items-center justify-between pr-2 focus-within:bg-zinc-100 rounded-sm">
+                                                <SelectItem value={preset.id} className="flex-1">
+                                                    {preset.name}
+                                                </SelectItem>
+                                                <button 
+                                                    onClick={(e) => handleDeletePreset(e, preset.id)}
+                                                    className="p-1 text-zinc-400 hover:text-red-500 transition-colors"
+                                                    title="Delete preset"
+                                                >
+                                                    <Trash size={14} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </SelectGroup>
+                                )}
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="flex gap-2 mt-2">
+                        <Button onClick={randomize} variant="outline" className="flex-1">
+                            Randomize
+                        </Button>
+                        <Button 
+                            variant="outline" 
+                            size="icon" 
+                            onClick={() => setSaveDialogOpen(true)}
+                            title="Save current as preset"
+                        >
+                            <Save size={18} />
+                        </Button>
+                    </div>
                 </div>
+
+                <SavePresetDialog 
+                    open={saveDialogOpen} 
+                    onOpenChange={setSaveDialogOpen}
+                    onSave={refreshPresets}
+                />
 
                 {/* Colors Section */}
                 {colorControls.length > 0 && (
