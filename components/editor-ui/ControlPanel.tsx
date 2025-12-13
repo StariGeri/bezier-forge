@@ -1,6 +1,6 @@
 "use client";
 
-import { useEditorStore } from "@/store/use-store";
+import { useEditorStore, EditorConfig } from "@/store/use-store";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,6 +15,11 @@ import {
 } from '@/components/ui/color-picker';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Color from 'color';
+import { getShapeControls, ControlDef, SliderControlDef } from '@/components/shapes/ShapeDefinitions';
+
+// ────────────────────────────────────────────────────────────────────────────
+// Color Input Component
+// ────────────────────────────────────────────────────────────────────────────
 
 const ColorInput = ({ 
     label, 
@@ -66,102 +71,145 @@ const ColorInput = ({
     );
 };
 
+// ────────────────────────────────────────────────────────────────────────────
+// Slider Input Component
+// ────────────────────────────────────────────────────────────────────────────
+
+const SliderInput = ({
+    control,
+    value,
+    onChange,
+}: {
+    control: SliderControlDef;
+    value: number;
+    onChange: (value: number) => void;
+}) => {
+    // Format display value based on step
+    const displayValue = control.step < 1 
+        ? value.toFixed(1) 
+        : Math.round(value);
+
+    return (
+        <div className="space-y-2">
+            <div className="flex justify-between">
+                <Label>{control.label} ({displayValue})</Label>
+            </div>
+            <Slider
+                value={[value]}
+                min={control.min}
+                max={control.max}
+                step={control.step}
+                onValueChange={(val) => onChange(val[0])}
+            />
+        </div>
+    );
+};
+
+// ────────────────────────────────────────────────────────────────────────────
+// Control Renderer
+// ────────────────────────────────────────────────────────────────────────────
+
+const ControlRenderer = ({
+    control,
+    config,
+    updateConfig,
+}: {
+    control: ControlDef;
+    config: EditorConfig;
+    updateConfig: <K extends keyof EditorConfig>(key: K, value: EditorConfig[K]) => void;
+}) => {
+    const key = control.key;
+    const value = config[key];
+
+    if (control.type === 'color') {
+        return (
+            <ColorInput
+                key={key}
+                label={control.label}
+                value={value as string}
+                onChange={(val) => updateConfig(key, val as EditorConfig[typeof key])}
+            />
+        );
+    }
+
+    if (control.type === 'slider') {
+        return (
+            <SliderInput
+                key={key}
+                control={control}
+                value={value as number}
+                onChange={(val) => updateConfig(key, val as EditorConfig[typeof key])}
+            />
+        );
+    }
+
+    return null;
+};
+
+// ────────────────────────────────────────────────────────────────────────────
+// Control Panel
+// ────────────────────────────────────────────────────────────────────────────
+
 export const ControlPanel = () => {
-  const { config, updateConfig, randomize } = useEditorStore();
+    const { selectedShapeId, config, updateConfig, randomize } = useEditorStore();
+    
+    // Get controls for the selected shape
+    const controls = getShapeControls(selectedShapeId || 'radial');
+    
+    // Separate color controls from slider controls for grouping
+    const colorControls = controls.filter((c) => c.type === 'color');
+    const sliderControls = controls.filter((c) => c.type === 'slider');
 
-  return (
-    <Card className="w-full h-full overflow-y-auto">
-      <CardHeader>
-        <CardTitle>Controls</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        
-        {/* Actions */}
-        <div className="flex gap-2">
-            <Button onClick={randomize} variant="outline" className="flex-1">Randomize</Button>
-        </div>
-
-        {/* Colors */}
-        <ColorInput 
-            label="Primary Color" 
-            value={config.primaryColor} 
-            onChange={(val) => updateConfig('primaryColor', val)} 
-        />
-        <ColorInput 
-            label="Secondary Color" 
-            value={config.secondaryColor} 
-            onChange={(val) => updateConfig('secondaryColor', val)} 
-        />
-
-        {/* Sliders */}
-        <div className="space-y-4">
-            <div className="space-y-2">
-                <div className="flex justify-between">
-                    <Label>Scale ({config.scale})</Label>
+    return (
+        <Card className="w-full h-full overflow-y-auto border-0 shadow-none">
+            <CardHeader>
+                <CardTitle>Controls</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                
+                {/* Actions */}
+                <div className="flex gap-2">
+                    <Button onClick={randomize} variant="outline" className="flex-1">
+                        Randomize
+                    </Button>
                 </div>
-                <Slider 
-                    value={[config.scale]} 
-                    min={0.1} 
-                    max={2} 
-                    step={0.1} 
-                    onValueChange={(val) => updateConfig('scale', val[0])} 
-                />
-            </div>
 
-            <div className="space-y-2">
-                <div className="flex justify-between">
-                    <Label>Rotation ({config.rotation})</Label>
-                </div>
-                <Slider 
-                    value={[config.rotation]} 
-                    min={0} 
-                    max={360} 
-                    step={1} 
-                    onValueChange={(val) => updateConfig('rotation', val[0])} 
-                />
-            </div>
+                {/* Colors Section */}
+                {colorControls.length > 0 && (
+                    <div className="space-y-4">
+                        {colorControls.map((control) => (
+                            <ControlRenderer
+                                key={control.key}
+                                control={control}
+                                config={config}
+                                updateConfig={updateConfig}
+                            />
+                        ))}
+                    </div>
+                )}
 
-            <div className="space-y-2">
-                <div className="flex justify-between">
-                    <Label>Count ({config.count})</Label>
-                </div>
-                <Slider 
-                    value={[config.count]} 
-                    min={1} 
-                    max={50} 
-                    step={1} 
-                    onValueChange={(val) => updateConfig('count', val[0])} 
-                />
-            </div>
+                {/* Sliders Section */}
+                {sliderControls.length > 0 && (
+                    <div className="space-y-4">
+                        {sliderControls.map((control) => (
+                            <ControlRenderer
+                                key={control.key}
+                                control={control}
+                                config={config}
+                                updateConfig={updateConfig}
+                            />
+                        ))}
+                    </div>
+                )}
 
-            <div className="space-y-2">
-                <div className="flex justify-between">
-                    <Label>Radius ({config.radius})</Label>
-                </div>
-                <Slider 
-                    value={[config.radius]} 
-                    min={0} 
-                    max={50} 
-                    step={1} 
-                    onValueChange={(val) => updateConfig('radius', val[0])} 
-                />
-            </div>
-            
-             <div className="space-y-2">
-                <div className="flex justify-between">
-                    <Label>Roundness ({config.roundness})</Label>
-                </div>
-                <Slider 
-                    value={[config.roundness]} 
-                    min={0} 
-                    max={100} 
-                    step={1} 
-                    onValueChange={(val) => updateConfig('roundness', val[0])} 
-                />
-            </div>
-        </div>
+                {/* Empty state if no controls defined */}
+                {controls.length === 0 && (
+                    <p className="text-sm text-muted-foreground text-center py-4">
+                        No controls available for this shape.
+                    </p>
+                )}
 
-      </CardContent>
-    </Card>
-  );
+            </CardContent>
+        </Card>
+    );
 };
