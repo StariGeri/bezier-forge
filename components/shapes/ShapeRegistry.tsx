@@ -100,8 +100,20 @@ import { PistonGenerator } from './PistonGenerator';
 // Batch P - Light/Optical
 import { LensFlareGenerator } from './LensFlareGenerator';
 import { BokehGenerator } from './BokehGenerator';
+import { PrismGenerator } from './PrismGenerator';
+// Batch Q - New Shapes
+import { AnchorGenerator } from './AnchorGenerator';
+import { SnowflakeGenerator } from './SnowflakeGenerator';
+import { CompassGenerator } from './CompassGenerator';
+import { HourglassGenerator } from './HourglassGenerator';
+import { CrownGenerator } from './CrownGenerator';
+import { EditorConfig } from '@/store/use-store';
 
-export const SHAPE_REGISTRY: Record<string, React.ComponentType> = {
+export interface ShapeGeneratorProps {
+  config?: EditorConfig;
+}
+
+export const SHAPE_REGISTRY: Record<string, React.ComponentType<ShapeGeneratorProps>> = {
   // Classics
   radial: RadialGenerator,
   blob: BlobGenerator,
@@ -221,8 +233,41 @@ export const SHAPE_REGISTRY: Record<string, React.ComponentType> = {
   // Light/Optical
   lensflare: LensFlareGenerator,
   bokeh: BokehGenerator,
+  prism: PrismGenerator,
+  
+  // New Shapes
+  anchor: AnchorGenerator,
+  snowflake: SnowflakeGenerator,
+  compass: CompassGenerator,
+  hourglass: HourglassGenerator,
+  crown: CrownGenerator,
 };
 
-export const getShapeComponent = (id: string) => {
+export const getShapeComponent = (id: string): React.ComponentType<ShapeGeneratorProps> => {
   return SHAPE_REGISTRY[id] || RadialGenerator;
 };
+
+export interface ShapeCategory {
+  name: string;
+  shapes: string[];
+}
+
+export const SHAPE_CATEGORIES: ShapeCategory[] = [
+  { name: 'Classics', shapes: ['radial', 'blob', 'grid'] },
+  { name: 'Geometric', shapes: ['polygon', 'concentric', 'spiral', 'burst', 'mosaic', 'symmetry'] },
+  { name: 'Organic', shapes: ['flower', 'wave', 'liquid', 'amoeba', 'cloud', 'vine'] },
+  { name: 'Tech', shapes: ['circuit', 'glitch', 'databars', 'network', 'pixel', 'orbit'] },
+  { name: '3D', shapes: ['isocube', 'pyramid', 'cylinder', 'stairs', 'hexstack', 'torus'] },
+  { name: 'Architectural', shapes: ['arch', 'pillar', 'maze', 'knot', 'weave', 'arrow'] },
+  { name: 'Abstract', shapes: ['crescent', 'ripple', 'fragment', 'stripe', 'dotmatrix', 'crosshatch'] },
+  { name: 'Nature', shapes: ['leaf', 'coral', 'seed', 'mountain', 'feather', 'shell', 'snowflake'] },
+  { name: 'Retro', shapes: ['sunburst', 'diamond', 'chevron', 'badge', 'rosette', 'scallop'] },
+  { name: 'Cosmic', shapes: ['starcluster', 'galaxy', 'eclipse', 'asteroid', 'nebula', 'constellation'] },
+  { name: 'Motion', shapes: ['vortex', 'shatter', 'trail', 'bounce', 'propeller', 'morph'] },
+  { name: 'Audio', shapes: ['waveform', 'equalizer', 'soundrings'] },
+  { name: 'Scientific', shapes: ['dna', 'atom', 'crystal', 'molecule'] },
+  { name: 'Symbols', shapes: ['infinity', 'shield', 'lightning', 'target', 'heart', 'eye', 'anchor', 'compass', 'hourglass', 'crown'] },
+  { name: 'Cultural', shapes: ['mandala', 'celtic', 'seigaiha', 'arabesque'] },
+  { name: 'Industrial', shapes: ['gear', 'turbine', 'sprocket', 'piston'] },
+  { name: 'Optical', shapes: ['lensflare', 'bokeh', 'prism'] },
+];
