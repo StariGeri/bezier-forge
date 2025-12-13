@@ -24,7 +24,7 @@ export function Hero() {
 
           <p className="max-w-xl text-lg text-zinc-400 font-light mx-auto lg:mx-0">
             Stop dragging pixels. Start forging parameters. The generative logo
-            engine for fast-moving startups.
+            engine for fast-moving creators.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
