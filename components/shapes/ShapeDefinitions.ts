@@ -34,6 +34,7 @@ export interface ShapeDefinition {
   category: string;
   controls: ControlDef[];
   defaults: Partial<EditorConfig>;
+  isLogo?: boolean;
 }
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -739,6 +740,330 @@ const SHAPE_DEFINITIONS: ShapeDefinition[] = [
     controls: [primaryColor, secondaryColor, count(5, 30), radius(), seed],
     defaults: { count: 15, radius: 40 },
   },
+
+  // ─── Production Ready ───────────────────────────────────────────────────────
+  {
+    id: 'chevronstack',
+    label: 'Chevron Stack',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 20 },
+    isLogo: true,
+  },
+  {
+    id: 'quadpetal',
+    label: 'Quad Petal',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 20 },
+    isLogo: true,
+  },
+  {
+    id: 'doublecircle',
+    label: 'Double Circle',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'bolde',
+    label: 'Bold E',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
+  {
+    id: 'roundedx',
+    label: 'Rounded X',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 20 },
+    isLogo: true,
+  },
+  {
+    id: 'donutring',
+    label: 'Donut Ring',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 100 },
+    isLogo: true,
+  },
+  {
+    id: 'targetdot',
+    label: 'Target Dot',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 100 },
+    isLogo: true,
+  },
+  {
+    id: 'bullseyerings',
+    label: 'Bullseye Rings',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 100 },
+    isLogo: true,
+  },
+  {
+    id: 'diamondstar',
+    label: 'Diamond Star',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
+  
+  // Batch 2
+  {
+    id: 'pinwheel',
+    label: 'Pinwheel',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 20 },
+    isLogo: true,
+  },
+  {
+    id: 'crosscurve',
+    label: 'Cross Curve',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 30 },
+    isLogo: true,
+  },
+  {
+    id: 'starspark',
+    label: 'Star Spark',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
+  {
+    id: 'hexarrow',
+    label: 'Hex Arrow',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
+  {
+    id: 'expandarrows',
+    label: 'Expand Arrows',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 20 },
+    isLogo: true,
+  },
+  {
+    id: 'linksquare',
+    label: 'Link Square',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 20 },
+    isLogo: true,
+  },
+  
+  // Batch 3 - SVG Variations
+  {
+    id: 'spinnerquad',
+    label: 'Spinner Quad',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'spinnerduo',
+    label: 'Spinner Duo',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'starframe',
+    label: 'Star Frame',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'starcutout',
+    label: 'Star Cutout',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'wavecurve',
+    label: 'Wave Curve',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  
+  // Batch 4 - Variations
+  {
+    id: 'wavecurvesingle',
+    label: 'Wave Single',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'wavecurvetriple',
+    label: 'Wave Triple',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'starframedouble',
+    label: 'Star Double',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'starframetight',
+    label: 'Star Tight',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'pillstack',
+    label: 'Pill Stack',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 100 },
+    isLogo: true,
+  },
+  {
+    id: 'pillfan',
+    label: 'Pill Fan',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 100 },
+    isLogo: true,
+  },
+  
+  // Batch 5 - Chain/Curve Variations
+  {
+    id: 'chainlink',
+    label: 'Chain Link',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'chainsingle',
+    label: 'Chain Single',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'eight',
+    label: 'Eight',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'serpent',
+    label: 'Serpent',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'wavebars',
+    label: 'Wave Bars',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'helix',
+    label: 'Helix',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  
+  // Batch 6 - Bolt/Diagonal Variations
+  {
+    id: 'boltstack',
+    label: 'Bolt Stack',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'boltsingle',
+    label: 'Bolt Single',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'bolttriple',
+    label: 'Bolt Triple',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'arrowdual',
+    label: 'Arrow Dual',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'diagonalbars',
+    label: 'Diagonal Bars',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'zigzag',
+    label: 'Zigzag',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'layerstack',
+    label: 'Layer Stack',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
 ];
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -789,3 +1114,6 @@ export const getShapeCategories = (): { name: string; shapes: string[] }[] => {
 // Export shape IDs list for quick iteration
 export const ALL_SHAPE_IDS = SHAPE_DEFINITIONS.map((def) => def.id);
 
+export const isLogoShape = (id: string): boolean => {
+  return SHAPES.get(id)?.isLogo ?? false;
+};

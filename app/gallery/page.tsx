@@ -40,7 +40,7 @@ export default function GalleryPage() {
 
   // Filter logic
   const filteredCategories = useMemo(() => {
-    return SHAPE_CATEGORIES.map(category => ({
+    const filtered = SHAPE_CATEGORIES.map(category => ({
       ...category,
       shapes: category.shapes.filter(shape => {
         const matchesSearch = shape.toLowerCase().includes(searchQuery.toLowerCase());
@@ -49,6 +49,13 @@ export default function GalleryPage() {
         return matchesSearch && matchesCategory;
       })
     })).filter(cat => cat.shapes.length > 0);
+
+    // Sort Production Ready to top
+    return filtered.sort((a, b) => {
+      if (a.name === 'Production Ready') return -1;
+      if (b.name === 'Production Ready') return 1;
+      return 0;
+    });
   }, [searchQuery, selectedCategories]);
 
   // Keyboard navigation
@@ -176,13 +183,18 @@ export default function GalleryPage() {
                     </div>
                 ) : (
                     filteredCategories.map((category, categoryIndex) => (
-                        <section key={category.name}>
+                        <section key={category.name} className={category.name === 'Production Ready' ? 'mb-20' : ''}>
                             {/* Category Header */}
                             <div className="flex items-center gap-4 mb-6">
-                                <h2 className="text-2xl font-bold text-white">
+                                <h2 className={`text-2xl font-bold ${category.name === 'Production Ready' ? 'text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-red-500' : 'text-white'}`}>
                                     {category.name}
                                 </h2>
-                                <div className="flex-1 h-px bg-zinc-800/50" />
+                                <div className={`flex-1 h-px ${category.name === 'Production Ready' ? 'bg-gradient-to-r from-orange-500/50 to-transparent' : 'bg-zinc-800/50'}`} />
+                                {category.name === 'Production Ready' && (
+                                    <Badge variant="outline" className="border-orange-500/30 text-orange-400 bg-orange-500/10">
+                                        PREMIUM
+                                    </Badge>
+                                )}
                                 <span className="inline-flex items-center rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs font-mono text-zinc-400">
                                     {category.shapes.length}
                                 </span>
@@ -197,9 +209,11 @@ export default function GalleryPage() {
                                     const globalIndex = originalCatIndex * 10 + shapeIndex; 
                                     const config = getPreviewConfig(shape, globalIndex);
 
+                                    const isLogo = category.name === 'Production Ready';
+
                                     return (
                                         <Link key={shape} href={`/editor/${shape}`} className="group relative">
-                                            <div className="aspect-square bg-zinc-900 border border-white/5 rounded-xl overflow-hidden group-hover:border-orange-500/50 transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_10px_40px_-10px_rgba(249,115,22,0.2)]">
+                                            <div className={`aspect-square bg-zinc-900 border ${isLogo ? 'border-orange-500/20 shadow-[0_0_20px_-5px_rgba(249,115,22,0.15)]' : 'border-white/5'} rounded-xl overflow-hidden group-hover:border-orange-500/50 transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_10px_40px_-10px_rgba(249,115,22,0.2)]`}>
                                                 {/* Background Grid */}
                                                 <div className="absolute inset-0 bg-[radial-gradient(#ffffff05_1px,transparent_1px)] bg-size-[16px_16px]" />
                                                 
@@ -216,6 +230,11 @@ export default function GalleryPage() {
 
                                                 {/* Overlay Label */}
                                                 <div className="absolute inset-x-0 bottom-0 p-3 bg-linear-to-t from-zinc-950 to-transparent pt-10 flex flex-col items-center justify-end opacity-60 group-hover:opacity-100 transition-opacity">
+                                                    {isLogo && (
+                                                        <span className="mb-1 text-[8px] font-bold text-orange-500 border border-orange-500/30 px-1.5 py-0.5 rounded-full bg-orange-500/10">
+                                                            READY
+                                                        </span>
+                                                    )}
                                                     <span className="font-mono text-[10px] text-orange-200 uppercase tracking-wider font-bold">
                                                         {shape}
                                                     </span>

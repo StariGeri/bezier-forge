@@ -107,6 +107,7 @@ import { HourglassGenerator } from './HourglassGenerator';
 import { CrownGenerator } from './CrownGenerator';
 import { EditorConfig } from '@/store/use-store';
 import { getShapeCategories } from './ShapeDefinitions';
+import { LOGO_REGISTRY } from '@/components/logos/LogoRegistry';
 
 export interface ShapeGeneratorProps {
   config?: EditorConfig;
@@ -238,6 +239,9 @@ export const SHAPE_REGISTRY: Record<string, React.ComponentType<ShapeGeneratorPr
   compass: CompassGenerator,
   hourglass: HourglassGenerator,
   crown: CrownGenerator,
+
+  // Production Ready Logos
+  ...LOGO_REGISTRY,
 };
 
 export const getShapeComponent = (id: string): React.ComponentType<ShapeGeneratorProps> => {

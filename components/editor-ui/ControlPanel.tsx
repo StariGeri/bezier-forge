@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/color-picker';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Color from 'color';
-import { getShapeControls, ControlDef, SliderControlDef } from '@/components/shapes/ShapeDefinitions';
+import { getShapeControls, ControlDef, SliderControlDef, isLogoShape } from '@/components/shapes/ShapeDefinitions';
 import { useState, useEffect } from "react";
 import { BUILT_IN_PRESETS, Preset } from "@/lib/presets";
 import { presetManager } from "@/lib/preset-manager";
@@ -213,10 +213,19 @@ export const ControlPanel = () => {
         toast.success("Preset deleted");
     };
 
+    const isLogo = isLogoShape(selectedShapeId || '');
+
     return (
         <Card className="w-full h-full overflow-y-auto border-0 shadow-none">
             <CardHeader>
-                <CardTitle>Controls</CardTitle>
+                <div className="flex items-center justify-between">
+                    <CardTitle>Controls</CardTitle>
+                    {isLogo && (
+                         <span className="text-[10px] font-bold text-orange-500 border border-orange-500/30 px-2 py-0.5 rounded-full bg-orange-500/10 uppercase tracking-wider">
+                             Production Ready
+                         </span>
+                    )}
+                </div>
             </CardHeader>
             <CardContent className="space-y-6">
                 
