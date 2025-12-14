@@ -55,6 +55,14 @@ import { HexWeaverLogo } from './HexWeaverLogo';
 import { TriangleTrinityLogo } from './TriangleTrinityLogo';
 import { OrbitRingLogo } from './OrbitRingLogo';
 import { SignalTowerLogo } from './SignalTowerLogo';
+// Batch 9 - Geometric
+import { BridgeArchLogo } from './BridgeArchLogo';
+import { DiagonalBlocksLogo } from './DiagonalBlocksLogo';
+import { ChevronDoubleLogo } from './ChevronDoubleLogo';
+import { CornerCircleLogo } from './CornerCircleLogo';
+import { ArrowFrameLogo } from './ArrowFrameLogo';
+import { SplitSquareLogo } from './SplitSquareLogo';
+import { ArrowStackLogo } from './ArrowStackLogo';
 
 import { ShapeGeneratorProps } from '../shapes/ShapeRegistry';
 
@@ -124,6 +132,15 @@ export const LOGO_REGISTRY: Record<string, React.ComponentType<ShapeGeneratorPro
   triangletrinity: TriangleTrinityLogo,
   orbitring: OrbitRingLogo,
   signaltower: SignalTowerLogo,
+
+  // Batch 9 - Geometric
+  bridgearch: BridgeArchLogo,
+  diagonalblocks: DiagonalBlocksLogo,
+  chevrondouble: ChevronDoubleLogo,
+  cornercircle: CornerCircleLogo,
+  arrowframe: ArrowFrameLogo,
+  splitsquare: SplitSquareLogo,
+  arrowstack: ArrowStackLogo,
 };
 
 export const getLogoComponent = (id: string): React.ComponentType<ShapeGeneratorProps> | undefined => {

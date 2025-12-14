@@ -1156,6 +1156,64 @@ const SHAPE_DEFINITIONS: ShapeDefinition[] = [
     defaults: { roundness: 50 },
     isLogo: true,
   },
+
+  // Batch 9 - Geometric/Negative Space
+  {
+    id: 'bridgearch',
+    label: 'Bridge Arch',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 20 },
+    isLogo: true,
+  },
+  {
+    id: 'diagonalblocks',
+    label: 'Diagonal Blocks',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
+  {
+    id: 'chevrondouble',
+    label: 'Chevron Double',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
+  {
+    id: 'cornercircle',
+    label: 'Corner Circle',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
+  {
+    id: 'arrowframe',
+    label: 'Arrow Frame',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
+  {
+    id: 'splitsquare',
+    label: 'Split Square',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 0 },
+    isLogo: true,
+  },
+  {
+    id: 'arrowstack',
+    label: 'Arrow Stack',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
 ];
 
 // ────────────────────────────────────────────────────────────────────────────
