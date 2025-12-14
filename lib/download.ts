@@ -92,3 +92,27 @@ export const downloadSvg = (svgElement: SVGSVGElement, filename: string, size: n
     const blob = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
     downloadBlob(blob, `${filename}.svg`);
 };
+
+export const downloadPng = async (svgElement: SVGSVGElement, filename: string, size: number = 1024) => {
+    const source = getSvgString(svgElement, size);
+    const blob = await svgStringToPngBlob(source, size);
+    downloadBlob(blob, `${filename}.png`);
+};
+
+export const copyPngToClipboard = async (svgElement: SVGSVGElement, size: number) => {
+    const source = getSvgString(svgElement, size);
+    const blob = await svgStringToPngBlob(source, size);
+    
+    if (!navigator.clipboard || !navigator.clipboard.write) {
+        throw new Error("Clipboard write API not available");
+    }
+    
+    try {
+        await navigator.clipboard.write([
+            new ClipboardItem({ "image/png": blob })
+        ]);
+    } catch (error) {
+         console.error("Failed to copy PNG:", error);
+         throw new Error("Failed to copy PNG to clipboard");
+    }
+};

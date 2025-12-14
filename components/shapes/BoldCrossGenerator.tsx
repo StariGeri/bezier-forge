@@ -42,3 +42,5 @@ export const BoldCrossGenerator = ({ config: overrideConfig }: ShapeGeneratorPro
   );
 };
 
+
+

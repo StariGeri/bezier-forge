@@ -12,10 +12,8 @@ import { Keyboard, HelpCircle } from "lucide-react";
 export const KeyboardShortcutsHelp = () => {
   const shortcuts = [
     { key: "R", description: "Randomize current shape" },
-    { key: "E", description: "Download SVG" },
-    { key: "⌘+Shift+C", description: "Copy SVG to clipboard" },
+    { key: "E", description: "Open Export Dialog" },
     { key: "← / →", description: "Adjust rotation (Shift for 10°)" },
-    { key: "+ / -", description: "Adjust scale" },
   ];
 
   return (
@@ -53,4 +51,3 @@ export const KeyboardShortcutsHelp = () => {
     </Dialog>
   );
 };
-

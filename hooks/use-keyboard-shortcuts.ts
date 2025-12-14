@@ -27,12 +27,6 @@ export const useKeyboardShortcuts = (handlers: {
         handlers.onDownload?.();
       }
 
-      // Cmd+Shift+C - Copy SVG
-      if ((e.metaKey || e.ctrlKey) && e.key === 'c' && e.shiftKey) {
-        e.preventDefault();
-        handlers.onCopy?.();
-      }
-
       // Arrow keys - Fine-tune rotation
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -42,20 +36,9 @@ export const useKeyboardShortcuts = (handlers: {
         e.preventDefault();
         updateConfig('rotation', Math.min(360, config.rotation + (e.shiftKey ? 10 : 1)));
       }
-
-      // +/- Scale
-      if (e.key === '+' || e.key === '=') {
-        e.preventDefault();
-        updateConfig('scale', Math.min(2, config.scale + 0.1));
-      }
-      if (e.key === '-' || e.key === '_') {
-        e.preventDefault();
-        updateConfig('scale', Math.max(0.1, config.scale - 0.1));
-      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handlers, randomize, updateConfig, config]);
 };
-

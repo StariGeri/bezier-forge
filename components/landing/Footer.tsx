@@ -4,8 +4,6 @@ import { Star } from "lucide-react";
 export function Footer() {
   return (
     <footer className="w-full h-full bg-zinc-950 flex flex-col justify-between py-12 px-6 overflow-hidden relative">
-      {/* Background Grid/Pattern could go here if needed */}
-      
       <div className="max-w-7xl mx-auto w-full flex flex-col gap-12 z-10">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
             <div className="flex flex-col gap-4">
@@ -26,11 +24,6 @@ export function Footer() {
                 <p className="text-zinc-400">
                     Created by <Link href="https://staridev.hu" target="_blank" className="text-white hover:text-orange-400 transition-colors font-semibold">StariGeri</Link>
                 </p>
-                <div className="flex items-center gap-6 text-sm text-zinc-500 justify-end">
-                    <Link href="https://github.com/starigeri/bezier-forge" className="hover:text-white transition-colors">
-                Source Code
-            </Link>
-                </div>
             </div>
         </div>
       </div>

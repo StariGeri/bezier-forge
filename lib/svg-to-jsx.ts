@@ -94,7 +94,7 @@ const walkNode = (node: Element, level: number): string => {
   return `${indent(level)}<${tagName}${attributes}>${childrenJsx}</${tagName}>`;
 };
 
-export const svgStringToJsx = (svgString: string): string => {
+export const svgStringToJsx = (svgString: string, componentName: string = "Logo"): string => {
   if (typeof DOMParser === 'undefined') {
     throw new Error('DOMParser is not available. This function runs in the browser.');
   }
@@ -110,7 +110,7 @@ export const svgStringToJsx = (svgString: string): string => {
 
   const jsxContent = walkNode(svgElement, 2).trim();
 
-  return `export const Logo = () => (
+  return `export const ${componentName} = () => (
   ${jsxContent}
 );`;
 };

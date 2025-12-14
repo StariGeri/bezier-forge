@@ -1,49 +1,28 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { useEditorStore, ExportSize } from "@/store/use-store";
 import { Canvas } from "@/components/editor-ui/Canvas";
 import { ControlPanel } from "@/components/editor-ui/ControlPanel";
 import { Button } from "@/components/ui/button";
-import { Download, ArrowLeft, Copy, ChevronDown, Share2 } from "lucide-react";
+import { Download, ArrowLeft, Share2 } from "lucide-react";
 import Link from "next/link";
 import { 
-  downloadSvg, 
-  getSvgString, 
   copyTextToClipboard, 
 } from "@/lib/download";
-import { svgStringToJsx } from "@/lib/svg-to-jsx";
 import { configToUrl } from "@/lib/url-state";
 import { toast } from "@/lib/toast";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuSubContent,
-} from "@/components/ui/dropdown-menu";
 import { useUrlSync } from "@/hooks/use-url-sync";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { KeyboardShortcutsHelp } from "@/components/editor-ui/KeyboardShortcutsHelp";
-
-const EXPORT_SIZES: { value: ExportSize; label: string }[] = [
-  { value: 32, label: "32 × 32" },
-  { value: 64, label: "64 × 64" },
-  { value: 128, label: "128 × 128" },
-  { value: 256, label: "256 × 256" },
-  { value: 512, label: "512 × 512" },
-  { value: 1024, label: "1024 × 1024" },
-  { value: 2048, label: "2048 × 2048" },
-  { value: 4096, label: "4096 × 4096" },
-];
+import { ExportDialog } from "@/components/editor-ui/ExportDialog";
 
 export default function EditorPage() {
   const params = useParams();
-  const { setShape, exportSize, randomize, config } = useEditorStore();
+  const { setShape, randomize, config } = useEditorStore();
   const svgRef = useRef<SVGSVGElement>(null);
+  const [exportDialogOpen, setExportDialogOpen] = useState(false);
   
   useUrlSync();
 
@@ -52,37 +31,6 @@ export default function EditorPage() {
       setShape(params.shapeId as string);
     }
   }, [params.shapeId, setShape]);
-
-  const handleDownloadSvg = (size: number) => {
-      if (!svgRef.current) return;
-      downloadSvg(svgRef.current, `logo-${params.shapeId}`, size);
-      toast.success(`Downloaded ${size}×${size} SVG`);
-  };
-
-  const handleCopySvg = async () => {
-    if (!svgRef.current) return;
-    const source = getSvgString(svgRef.current, exportSize);
-    try {
-        await copyTextToClipboard(source);
-        toast.success("SVG copied to clipboard!");
-    } catch (e) {
-        console.error(e);
-        toast.error("Failed to copy SVG to clipboard.");
-    }
-  };
-
-  const handleCopyJsx = async () => {
-    if (!svgRef.current) return;
-    const source = getSvgString(svgRef.current, exportSize);
-    try {
-        const jsx = svgStringToJsx(source);
-        await copyTextToClipboard(jsx);
-        toast.success("JSX copied to clipboard!");
-    } catch (e) {
-        console.error(e);
-        toast.error("Failed to copy JSX to clipboard.");
-    }
-  };
 
   const handleShare = async () => {
     const url = configToUrl(window.location.href.split('?')[0], config);
@@ -96,8 +44,8 @@ export default function EditorPage() {
   };
 
   useKeyboardShortcuts({
-    onDownload: () => handleDownloadSvg(exportSize),
-    onCopy: handleCopySvg,
+    onDownload: () => setExportDialogOpen(true),
+    onCopy: () => setExportDialogOpen(true),
     onRandomize: randomize,
   });
 
@@ -119,49 +67,18 @@ export default function EditorPage() {
                 Share
             </Button>
 
-            {/* Copy Dropdown */}
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="sm">
-                        <Copy className="mr-2 h-4 w-4" />
-                        Copy
-                        <ChevronDown className="ml-2 h-3 w-3 opacity-50" />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={handleCopySvg}>
-                        Copy SVG
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleCopyJsx}>
-                        Copy JSX
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            {/* Export Button */}
+            <Button onClick={() => setExportDialogOpen(true)} size="sm">
+                <Download className="mr-2 h-4 w-4" />
+                Export
+            </Button>
 
-            {/* Download Dropdown */}
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button size="sm">
-                        <Download className="mr-2 h-4 w-4" />
-                        Download
-                        <ChevronDown className="ml-2 h-3 w-3 opacity-50" />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>
-                            Download SVG
-                        </DropdownMenuSubTrigger>
-                        <DropdownMenuSubContent>
-                             {EXPORT_SIZES.map((size) => (
-                                <DropdownMenuItem key={size.value} onClick={() => handleDownloadSvg(size.value)}>
-                                    {size.label}
-                                </DropdownMenuItem>
-                            ))}
-                        </DropdownMenuSubContent>
-                    </DropdownMenuSub>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            <ExportDialog 
+                open={exportDialogOpen} 
+                onOpenChange={setExportDialogOpen}
+                svgElement={svgRef.current}
+                shapeId={params.shapeId as string}
+            />
         </div>
       </header>
 
