@@ -49,6 +49,12 @@ import { SwooshQuadLogo } from './SwooshQuadLogo';
 import { CurvedCrossLogo } from './CurvedCrossLogo';
 import { WaveCornerLogo } from './WaveCornerLogo';
 import { ArcQuadLogo } from './ArcQuadLogo';
+// Batch 8 - Symmetric
+import { TripleLoopLogo } from './TripleLoopLogo';
+import { HexWeaverLogo } from './HexWeaverLogo';
+import { TriangleTrinityLogo } from './TriangleTrinityLogo';
+import { OrbitRingLogo } from './OrbitRingLogo';
+import { SignalTowerLogo } from './SignalTowerLogo';
 
 import { ShapeGeneratorProps } from '../shapes/ShapeRegistry';
 
@@ -111,6 +117,13 @@ export const LOGO_REGISTRY: Record<string, React.ComponentType<ShapeGeneratorPro
   curvedcross: CurvedCrossLogo,
   wavecorner: WaveCornerLogo,
   arcquad: ArcQuadLogo,
+
+  // Batch 8 - Symmetric
+  tripleloop: TripleLoopLogo,
+  hexweaver: HexWeaverLogo,
+  triangletrinity: TriangleTrinityLogo,
+  orbitring: OrbitRingLogo,
+  signaltower: SignalTowerLogo,
 };
 
 export const getLogoComponent = (id: string): React.ComponentType<ShapeGeneratorProps> | undefined => {

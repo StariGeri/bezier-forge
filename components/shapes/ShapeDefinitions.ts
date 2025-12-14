@@ -1114,6 +1114,48 @@ const SHAPE_DEFINITIONS: ShapeDefinition[] = [
     defaults: { roundness: 50 },
     isLogo: true,
   },
+
+  // Batch 8 - New Symmetric
+  {
+    id: 'tripleloop',
+    label: 'Triple Loop',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'hexweaver',
+    label: 'Hex Weaver',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 20 },
+    isLogo: true,
+  },
+  {
+    id: 'triangletrinity',
+    label: 'Triangle Trinity',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 10 },
+    isLogo: true,
+  },
+  {
+    id: 'orbitring',
+    label: 'Orbit Ring',
+    category: 'Production Ready',
+    controls: [primaryColor, secondaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
+  {
+    id: 'signaltower',
+    label: 'Signal Tower',
+    category: 'Production Ready',
+    controls: [primaryColor, roundness],
+    defaults: { roundness: 50 },
+    isLogo: true,
+  },
 ];
 
 // ────────────────────────────────────────────────────────────────────────────
